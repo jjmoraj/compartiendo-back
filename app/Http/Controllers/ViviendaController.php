@@ -152,7 +152,7 @@ class ViviendaController extends Controller
                     $imagen->delete();
                     continue;
                 }
-                if ($imagen && $imagenesVivienda['url'] != null) {
+                if ($imagen && $imagenVivienda['url'] != null) {
                     $image_info = getimagesize($imagenVivienda['url']);
                     $ext = isset($image_info['mime'])
                         ? explode('/', $image_info['mime'])[1]

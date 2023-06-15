@@ -59,7 +59,7 @@ class NotificacionController extends Controller
             ->get();
 
         foreach ($notificaciones as $notificacion) {
-            $notificacion->visto = 1;
+            $notificacion->visto = true;
             $notificacion->save();
         }
         return response()->json([

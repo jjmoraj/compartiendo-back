@@ -148,10 +148,8 @@ class PerfilController extends Controller
             $imagen_perfil_4->ruta = $file;
             $imagen_perfil_4->save();
         }
-
+        $vivienda = new Vivienda();
         if ($request->nuevaVivienda['creado']) {
-            $vivienda = new Vivienda();
-
             $vivienda->perfil_id = $perfil->id;
             $vivienda->comunidad = $request->nuevaVivienda['comunidad'];
             $vivienda->codigo_comunidad =
@@ -280,8 +278,8 @@ class PerfilController extends Controller
                 $imagen_vivienda_4->save();
             }
         }
+        $mascota = new Mascota();
         if ($request->nuevaMascota['creado']) {
-            $mascota = new Mascota();
             $mascota->perfil_id = $perfil->id;
             $mascota->nombre = $request->nuevaMascota['nombre'];
             $mascota->especie = $request->nuevaMascota['especie'];
@@ -471,7 +469,7 @@ class PerfilController extends Controller
             $imagen->delete();
         }
 
-        $vivienda = Vivienda::where('perfil_id', $perfil_id)->first();
+        $vivienda = Vivienda::where('perfil_id', $perfil->id)->first();
 
         if ($vivienda) {
             $imagenesVivienda = ImagenesVivienda::where(
@@ -485,7 +483,7 @@ class PerfilController extends Controller
             $vivienda->delete();
         }
 
-        $mascota = Mascota::where('perfil_id', $perfil_id)->first();
+        $mascota = Mascota::where('perfil_id', $perfil->id)->first();
 
         if ($mascota) {
             $imagenesMascota = ImagenesMascota::where(
@@ -500,6 +498,7 @@ class PerfilController extends Controller
         }
 
         $perfil->delete();
+        $user->delete();
 
         return response()->json([
             'success' => true,
