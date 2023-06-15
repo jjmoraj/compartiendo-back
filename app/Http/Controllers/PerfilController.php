@@ -11,6 +11,7 @@ use App\Models\Vivienda;
 use App\Models\ImagenesVivienda;
 use App\Models\Mascota;
 use App\Models\Like;
+use App\Models\Notificacion;
 use App\Models\ImagenesMascota;
 use Carbon\Carbon;
 
@@ -495,6 +496,22 @@ class PerfilController extends Controller
                 $imagenMascota->delete();
             }
             $mascota->delete();
+        }
+
+        $likes = Like::where('emisor_id', $perfil->id)
+            ->orWhere('receptor_id', $perfil->id)
+            ->get();
+
+        foreach ($likes as $like) {
+            $like->delete();
+        }
+
+        $notificaciones = Notificacion::where('emisor_id', $perfil->id)
+            ->orWhere('receptor_id', $perfil->id)
+            ->get();
+
+        foreach ($notificaciones as $notificacion) {
+            $notificacion->delete();
         }
 
         $perfil->delete();
